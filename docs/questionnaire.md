@@ -20,7 +20,10 @@ Fill this in (bullet points are fine, no need for full sentences). The more deta
 
 - In 2–3 sentences, how would you summarize your whole internship to someone outside the company? I'm making app and website to help company. I'm coding with AI and I'm finding new way to improve our productivity.
 - What are the 3–5 key points you absolutely want a reader to remember? developing app, searching on internet how to improve, learning a lot.
-- Do you have any diagrams, screenshots, architecture drawings, photos, or charts you could include as illustrations? List what's available. **A completer** (see issue).
+- Do you have any diagrams, screenshots, architecture drawings, photos, or charts you could include as illustrations? List what's available.
+  - Screenshot of the "Projects" dashboard (Vercel-style) showing the three projects I worked on: periscorp-deck, weteam-app, weteam-web, with their GitHub repos and recent commits.
+  - Screenshot of my GitHub activity timeline for June 2026, showing 33 commits across 3 repositories, 2 repositories created, and 53+ pull requests opened across 4 repositories.
+  - These two images illustrate the applications I learned to master and use in my work during the internship.
 - Any sources/documents you referenced that need citing (internal docs, articles, tools' docs)? no.
 
 ---
