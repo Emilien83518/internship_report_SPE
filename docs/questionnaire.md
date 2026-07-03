@@ -24,6 +24,8 @@ Fill this in (bullet points are fine, no need for full sentences). The more deta
   - Screenshot of the "Projects" dashboard (Vercel-style) showing the three projects I worked on: periscorp-deck, weteam-app, weteam-web, with their GitHub repos and recent commits.
   - Screenshot of my GitHub activity timeline for June 2026, showing 33 commits across 3 repositories, 2 repositories created, and 53+ pull requests opened across 4 repositories.
   - These two images illustrate the applications I learned to master and use in my work during the internship.
+  - A picture of a PR I have created to improve our efficiency.
+  - A picture of my work on the pitch deck for Periscorp.
 - Any sources/documents you referenced that need citing (internal docs, articles, tools' docs)? no.
 
 ---
