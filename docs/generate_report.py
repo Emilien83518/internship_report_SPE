@@ -175,7 +175,6 @@ story.append(Spacer(1, 0.35 * inch))
 # Kept on the same page as the cover — both were mostly blank space on their own.
 story.append(Paragraph("Table of Contents", styles["PartHeading"]))
 toc1 = [
-    "Executive Summary",
     "1. Introduction",
     "2. Objectives and Missions",
     "3. Tasks in Context",
@@ -187,20 +186,12 @@ toc1 = [
     "9. Internship Search Process",
     "10. Contribution to Career Plan",
     "11. Conclusion",
+    "Executive Summary",
 ]
 for entry in toc1:
     num = entry.split(".")[0]
     story.append(Paragraph(f"{entry} <font color='#5a6472'>.......................</font> {{{{P{num}}}}}", styles["TOCEntry"]))
 story.append(PageBreak())
-
-# ------------------------------------------------------- EXECUTIVE SUMMARY --
-story.append(Paragraph("Executive Summary", styles["PartHeading"]))
-story.append(P(
-    "A condensed, six-slide overview of the internship — organization, tasks, skills, sustainable "
-    "development, and career reflection — each expanded in full in the sections that follow."))
-for i in range(1, 7):
-    story.extend(figure_image(f"exec_summary_{i}.png", ""))
-    story.append(PageBreak())
 
 # ---------------------------------------------------------------- BODY -----
 story.append(Paragraph("1. Introduction", styles["H1"]))
@@ -384,6 +375,17 @@ gt.setStyle(TableStyle([
     ("LINEBELOW", (0, 0), (-1, -2), 0.4, colors.HexColor("#e3e7ec")),
 ]))
 story.append(gt)
+story.append(PageBreak())
+
+# ------------------------------------------------------- EXECUTIVE SUMMARY --
+story.append(Paragraph("Executive Summary", styles["PartHeading"]))
+story.append(P(
+    "A condensed, six-slide overview of the internship — organization, tasks, skills, sustainable "
+    "development, and career reflection — each expanded in full in the sections above."))
+for i in range(1, 7):
+    story.extend(figure_image(f"exec_summary_{i}.png", ""))
+    if i < 6:
+        story.append(PageBreak())
 
 # ---------------------------------------------------------------- BUILD ----
 doc = SimpleDocTemplate(OUT, pagesize=LETTER,
