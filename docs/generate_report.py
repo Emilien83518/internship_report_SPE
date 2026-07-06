@@ -134,7 +134,6 @@ story.append(PageBreak())
 
 # ------------------------------------------------------------------ TOC ----
 story.append(Paragraph("Table of Contents", styles["PartHeading"]))
-story.append(Paragraph("PART 1 — Internship Report", styles["TOCPart"]))
 toc1 = [
     "1. Introduction",
     "2. Objectives and Missions",
@@ -146,73 +145,74 @@ toc1 = [
     "8. Sustainable Development",
     "9. Internship Search Process",
     "10. Contribution to Career Plan",
+    "11. Conclusion",
 ]
-TOC1_PAGES = {}  # filled after first pass
 for entry in toc1:
-    num = entry.split(".")[0]
-    story.append(Paragraph(f"{entry} <font color='#5a6472'>.......................</font> {{{{P{num}}}}}", styles["TOCEntry"]))
-
-story.append(Paragraph("PART 2 — Executive Summary", styles["TOCPart"]))
-toc2 = [
-    "11. Company Overview and Organization Chart",
-    "12. Tasks Performed, Linked to the Timeline",
-    "13. Skills Mapped to My Future Profession",
-    "14. Search Process & Career Contribution (Summary)",
-    "15. Sustainable Development (Summary)",
-    "16. Activity Snapshot",
-    "17. Conclusion",
-]
-for entry in toc2:
     num = entry.split(".")[0]
     story.append(Paragraph(f"{entry} <font color='#5a6472'>.......................</font> {{{{P{num}}}}}", styles["TOCEntry"]))
 story.append(PageBreak())
 
-# ------------------------------------------------------------- PART 1 ------
-story.append(Paragraph("PART 1 — INTERNSHIP REPORT", styles["PartHeading"]))
-
+# ---------------------------------------------------------------- BODY -----
 story.append(Paragraph("1. Introduction", styles["H1"]))
 story.append(P(
-    "Bewizit is a small web and mobile development agency at 2 rue de Vienne, building products for client "
-    "companies. I spent one month there, from June 7 to July 8, 2026, as a full-stack developer intern "
-    "reporting directly to Alexandre Wizel, the CEO. My job, in short: help the team code faster and cheaper "
-    "with AI tools, and tighten up the structure of a few of their products."))
+    "Bewizit is a small web and mobile app development agency at 2 rue de Vienne, building digital products "
+    "for client companies so they can run more efficiently. I spent one month there, from June 7 to "
+    "July 8, 2026, as a full-stack developer intern, reporting directly to Alexandre Wizel, the company's "
+    "CEO — there is no management layer in between. My mandate, in plain terms, was to help the team "
+    "build software faster and cheaper with AI-assisted tools, and to tighten up the technical structure of "
+    "a few of the company's ongoing products. If I had to sum up the month in a couple of sentences: I "
+    "built apps and websites, coded with AI, and spent a lot of time figuring out how to make that "
+    "combination more productive."))
 
 story.append(Paragraph("2. Objectives and Missions", styles["H1"]))
 story.append(P(
-    "The brief from day one was to bring more automation into how the team builds software, cut down on "
-    "token usage — a real cost when your whole team codes with AI — and clean up the structure of "
-    "a few ongoing projects. I split my time across three products:"))
+    "The internship agreement set three concrete objectives: help automate parts of the development "
+    "process through new AI-assisted workflows, reduce the team's token usage — a direct, recurring "
+    "cost for a company that codes with AI every day — and contribute to the technical structuring of "
+    "several ongoing projects. To meet them, I worked across three products, each with its own focus:"))
 story.append(simple_table(
     [["Project", "My mission"],
-     ["weteam", "New SaaS product — I worked on making the development workflow behind it more efficient."],
-     ["periscorp", "The company's flagship, more mature app — I focused on its underlying project structure."],
-     ["periscorp-deck", "Pitch-deck viewer for periscorp — I organized the GitHub project so the deck could be presented and maintained properly."]],
+     ["weteam", "New SaaS product — optimize the workflow/system behind it so the team could build faster."],
+     ["periscorp", "The company's main, more mature app — work on its underlying project structure."],
+     ["periscorp-deck", "Pitch-deck viewer to commercialize periscorp — build out and organize the GitHub project so a presentation-ready deck could be maintained."]],
     [1.3 * inch, 4.9 * inch]))
 
 story.append(Paragraph("3. Tasks in Context", styles["H1"]))
 story.append(P(
-    "Bewizit builds apps and websites that help other companies run better. Working directly under the CEO "
-    "meant my work fed straight into that: a smoother internal workflow and better-structured products both "
-    "mean faster delivery, which for a small agency is a real competitive edge. Cutting token usage mattered "
-    "too — AI-assisted coding is now a recurring cost for Bewizit, not just a convenience."))
+    "Bewizit's business is building web and mobile applications that help other companies become more "
+    "productive — that's the whole point of products like weteam and periscorp. Working directly under "
+    "the CEO meant my work fed straight into that mission: better internal tooling and better-structured "
+    "client-facing products both affect how fast the company can deliver, which for a small agency is a "
+    "direct competitive factor. My focus on reducing token usage tied into that even more concretely, "
+    "since AI-assisted coding is now a real, recurring line in Bewizit's costs, not just a nice-to-have."))
 
 story.append(Paragraph("4. Technical Overview of the Products", styles["H1"]))
-story.append(P("The three products differ a lot in age and stack, which meant adapting my approach to each rather than applying one template:"))
+story.append(P(
+    "Understanding each product's technical shape was step one before I could do any structuring work. "
+    "The three products differ a lot in maturity and stack, so I had to adapt my approach to each rather "
+    "than apply one template:"))
 story.append(simple_table(
-    [["Project", "Stack", "Notes"],
-     ["weteam", "TypeScript, React, Next.js, Supabase, Tailwind, Turborepo", "Newest codebase, i18n-ready monorepo — a good place to introduce leaner AI-assisted habits."],
-     ["periscorp", "PHP/Symfony + GraphQL API, Next.js, pnpm workspaces, Docker, JWT (RS256)", "Oldest and largest codebase — needed clean-up rather than new features."],
-     ["periscorp-deck", "Next.js, shadcn/ui, Markdown-driven slides", "Built to pitch periscorp to investors and clients."]],
-    [1.15 * inch, 2.4 * inch, 2.65 * inch]))
+    [["Project", "Stack", "Context & my focus"],
+     ["weteam", "TypeScript, React, Next.js, Supabase, Tailwind, Turborepo",
+      "A SaaS platform for team development — surveys, diagnostics, qualitative interviews — built as "
+      "an i18n-ready monorepo. Being the newest codebase, it was the natural place to try out leaner, "
+      "less token-hungry AI-assisted habits."],
+     ["periscorp", "PHP (Symfony API with GraphQL), Next.js, pnpm workspaces, Docker, JWT (RS256)",
+      "The company's main application, combining a PHP/GraphQL API with a Next.js frontend. Being the "
+      "oldest and biggest codebase, it needed structural clean-up more than new features."],
+     ["periscorp-deck", "Next.js, shadcn/ui, Markdown-driven slides",
+      "A pitch-deck viewer used to present periscorp to investors and clients — my focus was organizing "
+      "its GitHub repository and content so it could be maintained and presented professionally."]],
+    [1.05 * inch, 2.15 * inch, 3.0 * inch]))
 
 story.append(Paragraph("5. Tools and Technical Difficulties", styles["H1"]))
-story.append(P("Over the month I picked up, and gradually mastered, four main tools:"))
+story.append(P("Over the month I used, and gradually mastered, four main tools:"))
 story.append(simple_table(
     [["Tool", "What it was for", "Level reached"],
-     ["GitHub", "Version control and the PR workflow across four repositories", "Mastered very well"],
-     ["Claude Code", "AI-assisted coding, day to day", "Mastered quite well"],
-     ["Slack", "Talking with the CEO and the team", "Mastered well"],
-     ["VS Code", "Daily editor", "Mastered"]],
+     ["GitHub", "Version control and the pull-request workflow across four repositories", "Mastered very well"],
+     ["Claude Code", "AI-assisted coding for day-to-day development and workflow optimization", "Mastered quite well"],
+     ["Slack", "Communicating with the CEO and collaborators", "Mastered well"],
+     ["VS Code", "Day-to-day code editor", "Mastered"]],
     [1.1 * inch, 3.6 * inch, 1.5 * inch]))
 story.extend(figure_placeholder(
     "Figure 1 — “Projects” dashboard (Vercel-style) showing the three projects I worked on — "
@@ -221,146 +221,95 @@ story.extend(figure_placeholder(
     "Figure 2 — My GitHub activity timeline for June 2026: 33 commits across 3 repositories, 2 repositories "
     "created, and 53+ pull requests opened across 4 repositories."))
 story.append(P(
-    "The main hurdle was simply that I'd barely touched these tools before. Week one went almost entirely "
-    "into learning GitHub's collaborative workflow and Claude Code properly, before I could get to real "
-    "project work. I got there by mixing hands-on trial and error with reading the docs — testing things "
-    "on small scopes before touching real code. It paid off: by week two, both tools felt natural."))
+    "The main technical difficulty was simply that I started with almost no hands-on experience with any "
+    "of these tools. The first week went almost entirely into learning GitHub's collaborative workflow and "
+    "Claude Code properly, rather than writing project code. I got through it by pairing hands-on "
+    "experimentation with actual documentation — testing workflows on small, low-stakes scopes before "
+    "applying them to real projects. That investment paid off: from the second week onward, both tools "
+    "felt like second nature, and I could focus on the missions themselves rather than the tools."))
 
 story.append(Paragraph("6. Knowledge Applied and a Concrete Example", styles["H1"]))
 story.append(P(
-    "I brought core programming and structuring skills from my engineering training, though my GitHub "
-    "experience wasn't up to a professional team's pace at first — I had to relearn branches, pull "
-    "requests and code review on the job. What I hadn't expected to learn was how a very small company "
-    "actually runs day to day, with the CEO handling technical supervision directly since there's no "
-    "management layer in between."))
+    "From my engineering training I applied core programming and software-structuring skills, though my "
+    "prior GitHub experience wasn't quite ready for the pace of a professional team — I had to relearn "
+    "collaborative git workflows (branches, pull requests, code review) on the job, faster than I expected. "
+    "Beyond the technical side, the internship taught me something I hadn't planned for: how a very small "
+    "company is actually organized and run day to day, including how a CEO personally supervises technical "
+    "execution when there's no intermediate management layer at all."))
 story.append(P(
-    "The clearest example of putting a new skill to use: once I had a real handle on GitHub's PR workflow "
-    "and Claude Code, I opened a pull request that changed how the team structured its AI coding sessions, "
-    "so each one didn't have to re-explain project context from scratch. That small process change directly "
-    "supported the CEO's goal of cutting the cost of AI-assisted development."))
+    "The clearest example of applying a newly learned skill to a real problem: once I had a solid command "
+    "of GitHub's pull-request workflow and of Claude Code, I opened a pull request that restructured part "
+    "of the team's AI-assisted development process specifically to cut wasted token usage. Instead of "
+    "letting every coding session re-explain the project's context from scratch, I documented and applied "
+    "a more disciplined branching and PR convention so AI-assisted sessions could reuse existing structure "
+    "and context instead of starting cold. That change fed directly into the CEO's stated goal of lowering "
+    "the cost of AI-assisted development, and it shows in the numbers: across the month I made 33 commits "
+    "and opened more than 53 pull requests across four repositories, two of which I set up from scratch."))
 story.extend(figure_placeholder("Figure 3 — A pull request I created to improve the team's development efficiency."))
 
 story.append(Paragraph("7. Reflection on Situations Encountered", styles["H1"]))
 story.append(P(
-    "The recurring challenge wasn't one specific incident — it was learning to work efficiently with "
-    "unfamiliar tools in a team too small to run a proper onboarding. I leaned on my supervisor with "
-    "questions early on, then deliberately pushed myself to research and test things on my own, which freed "
-    "up his time and forced me to actually understand the tools rather than copy instructions. If I did it "
-    "again, I'd study each tool properly before day one instead of learning it on the fly."))
+    "The main difficulty I ran into wasn't a single incident so much as a standing challenge: learning to "
+    "work efficiently with tools I'd never used professionally, inside a team too small to run a real "
+    "onboarding program. In week one, I compensated by asking my supervisor frequent, sometimes basic, "
+    "questions. As I built up familiarity, I deliberately shifted toward researching and testing things on "
+    "my own before asking for help — which freed up his time and forced me to build a deeper, more "
+    "transferable understanding of the tools rather than just following instructions. Looking back, I'd try "
+    "to compress that first learning curve further by studying each tool in a structured way before day "
+    "one, instead of learning everything reactively on the job."))
 
 story.append(Paragraph("8. Sustainable Development", styles["H1"]))
 story.append(P(
-    "Bewizit is too small to have a written CSR policy, but it runs on the “Accord Toltèque” "
-    "(the Four Agreements) as an informal code of conduct to keep the team's culture healthy. On impact: "
-    "both weteam and periscorp exist to help other companies work better, which gives my work a clear, if "
-    "indirect, social upside. I didn't find an equivalent environmental angle to the company's activity."))
+    "Being a very small structure, Bewizit doesn't have a formal, written CSR policy. It does apply the "
+    "“Accord Toltèque” — the Four Agreements — as an informal code of conduct to keep a healthy "
+    "social environment inside its small team. On impact, the products I worked on, weteam and periscorp, "
+    "both carry a positive social dimension by design: their entire purpose is to help other companies "
+    "function better, whether that's supporting organizational development or supporting another "
+    "business's operations and fundraising. I didn't identify a comparable environmental dimension to the "
+    "company's activity."))
 story.append(P(
-    "A full environmental policy would be overkill for a team this size, but a realistic first step would be "
-    "to formalize something already close at hand — tracking and cutting token/compute usage, which I "
-    "already worked on, as a lightweight environmental metric alongside the existing social code. My overall "
-    "grade for the company's CSR: 14/20 — 10/10 on the social side thanks to the Accord Toltèque and "
-    "the close-knit team culture, 4/10 on the environmental side since there's no formal policy at all."))
+    "Given the company's size, a full environmental policy would be disproportionate, but a realistic "
+    "first step would be to formalize a practice that's already implicit in remote, AI-assisted work: "
+    "tracking and minimizing token and compute usage — something I already worked on — as a "
+    "lightweight environmental metric alongside the existing social code of conduct. Overall, I'd rate the "
+    "company's CSR performance at 14/20: strong on the social dimension (10/10, thanks to the Accord "
+    "Toltèque and the team's small, direct working culture) but weak on the environmental one (4/10, "
+    "reflecting the absence of any formal environmental policy)."))
 
 story.append(Paragraph("9. Internship Search Process", styles["H1"]))
 story.append(P(
-    "I found this internship through my network rather than a formal application process — I reached "
-    "out to find someone willing to take me on and teach me something outside my usual field. It worked well "
-    "here: I ended up with a supervisor genuinely invested in my growth. The downside is I only seriously "
-    "considered one option. Next time, I'd combine networking with a broader set of formal applications, so "
-    "I have more to compare and more room to negotiate."))
+    "I found this internship through personal networking rather than a formal application process, "
+    "reaching out within my network to find someone willing to bring me on and help me build skills "
+    "outside my usual academic field. That channel worked well in this specific case: it matched me with "
+    "a company and a supervisor genuinely invested in my development. Its main limitation is that I only "
+    "seriously considered one opportunity instead of comparing several. For a future search, I'd broaden "
+    "the funnel by combining networking with a wider set of formal applications, giving myself more room "
+    "to compare roles and negotiate scope."))
 
 story.append(Paragraph("10. Contribution to Career Plan", styles["H1"]))
 story.append(P(
-    "Before this internship, I was set on physics research — a field with little overlap with "
-    "full-stack development, which is exactly why I chose this internship: to try something different. It "
-    "didn't change that plan. What it did confirm is that the habits that plan depends on — learning "
-    "things on my own, mastering tools properly, solving problems methodically — carry over cleanly "
-    "into a completely different field, which only makes me more confident in it."))
-story.append(PageBreak())
+    "Before this internship, my career plan was oriented toward research in physics — a field with "
+    "limited direct overlap with full-stack web development. I deliberately chose this internship to "
+    "explore a different professional environment. It didn't change that underlying plan: I still intend "
+    "to pursue physics research. What it did confirm is that the working habits at the core of that plan "
+    "— autonomous learning, rigorous tool mastery, and structured problem-solving — transfer "
+    "directly to a completely different domain, which reinforces rather than diverts my confidence in "
+    "that direction."))
 
-# ------------------------------------------------------------- PART 2 ------
-story.append(Paragraph("PART 2 — EXECUTIVE SUMMARY", styles["PartHeading"]))
-story.append(P("A condensed version of the report above — organization chart, task timeline and skills mapping — for a quick read."))
-
-story.append(Paragraph("11. Company Overview and Organization Chart", styles["H1"]))
-story.append(P(
-    "Bewizit is a very flat structure: no management layer between the CEO and the operational team. I "
-    "reported directly to Alexandre Wizel throughout the internship."))
-org = Table(
-    [[cell("Alexandre Wizel<br/>CEO", bold=True)],
-     [cell("reports to")],
-     [cell("Emilien Amon<br/>Full-Stack Developer Intern — weteam / periscorp / periscorp-deck", bold=True)]],
-    colWidths=[4 * inch])
-org.setStyle(TableStyle([
-    ("ALIGN", (0, 0), (-1, -1), "CENTER"),
-    ("BOX", (0, 0), (0, 0), 0.75, ACCENT),
-    ("BOX", (0, 2), (0, 2), 0.75, ACCENT),
-    ("BACKGROUND", (0, 0), (0, 0), LIGHT),
-    ("BACKGROUND", (0, 2), (0, 2), LIGHT),
-    ("TOPPADDING", (0, 0), (-1, -1), 6),
-    ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
-]))
-story.append(org)
-story.append(Spacer(1, 8))
-
-story.append(Paragraph("12. Tasks Performed, Linked to the Timeline", styles["H1"]))
-story.append(simple_table(
-    [["Period", "Focus", "Main activity"],
-     ["Week 1 (Jun 7–13)", "Onboarding", "Learning GitHub, Claude Code, Slack and VS Code from a standing start."],
-     ["Week 2 (Jun 14–20)", "periscorp", "Working on the project structure of the company's main app."],
-     ["Week 3 (Jun 21–27)", "weteam", "Optimizing the dev workflow for the new SaaS product."],
-     ["Weeks 4–5 (Jun 28–Jul 8)", "periscorp-deck", "Structuring the GitHub project and content for the pitch-deck viewer."]],
-    [1.3 * inch, 1.1 * inch, 3.8 * inch]))
-
-story.append(Paragraph("13. Skills Mapped to My Future Profession", styles["H1"]))
-story.append(simple_table(
-    [["Skill", "Used how", "Relevance to research"],
-     ["Autonomous problem-solving", "Learning new tools with little onboarding", "Core to independent research"],
-     ["Git/GitHub", "53+ pull requests across 4 repositories", "Reproducibility and traceability"],
-     ["AI-assisted iteration (Claude Code)", "Speeding up and optimizing dev workflows", "Transfers to computational research"],
-     ["Communicating with non-specialists", "Explaining technical decisions to the CEO", "Communicating research to non-experts"]],
-    [1.7 * inch, 2.2 * inch, 2.3 * inch]))
-
-story.append(Paragraph("14. Search Process & Career Contribution (Summary)", styles["H1"]))
-story.append(P(
-    "I found this internship through my network, not a formal search — it worked well, though next time "
-    "I'd widen the funnel. It didn't change my career plan (physics research), but confirmed that autonomous "
-    "learning and real tool mastery carry over to it directly."))
-
-story.append(Paragraph("15. Sustainable Development (Summary)", styles["H1"]))
-story.append(simple_table(
-    [["Overall CSR grade", "14/20"],
-     ["Social", "10/10"],
-     ["Environmental", "4/10"]],
-    [2 * inch, 4.2 * inch], header=False))
-story.append(Spacer(1, 4))
-story.append(P(
-    "Bewizit runs on the Accord Toltèque as a social code of conduct but has no formal environmental "
-    "policy — proportionate to its size, but with room to improve, e.g. tracking token/compute usage as "
-    "a lightweight environmental metric."))
-
-story.append(Paragraph("16. Activity Snapshot", styles["H1"]))
-story.append(P("A quantitative snapshot of the month, drawn from my GitHub activity across the four repositories I contributed to:"))
-story.append(simple_table(
-    [["Metric", "Count", "Notes"],
-     ["Commits", "33", "Across 3 repositories (weteam, periscorp, periscorp-deck)"],
-     ["Repositories created", "2", "New repositories I set up and structured from scratch"],
-     ["Pull requests opened", "53+", "Across 4 repositories, reflecting the PR-driven workflow I adopted"]],
-    [1.4 * inch, 0.8 * inch, 4.0 * inch]))
-
-story.append(Paragraph("17. Conclusion", styles["H1"]))
+story.append(Paragraph("11. Conclusion", styles["H1"]))
 story.append(Paragraph(
-    "“What struck me most is how polyvalent you need to be to run your own company — and how much "
-    "it matters that people like Alexandre take the time, even at a tiny scale, to bring in an intern and "
-    "help shape someone else's future.”",
+    "“What impressed me most is that you have to be very polyvalent to run your own company, and "
+    "that it matters — even at a very small scale — to take on interns and help shape the people who'll "
+    "shape the workforce after you.”",
     styles["Quote"]))
 story.extend(figure_placeholder(
     "Paired illustration — my work on the periscorp pitch deck: a small, concrete trace of that "
     "polyvalence in practice."))
 story.append(Paragraph("Acknowledgements", styles["H1"]))
 story.append(P(
-    "Thanks to Alexandre Wizel for bringing me on, trusting me with real production work across three "
-    "products, and supervising me personally throughout the month."))
+    "Thanks to Alexandre Wizel for taking the time, at such a small company scale, to bring me on, trust "
+    "me with real production work across three products, and personally supervise my progress throughout "
+    "the month."))
 story.append(PageBreak())
 
 # --------------------------------------------------------------- GLOSSARY --
@@ -419,7 +368,7 @@ for i, page in enumerate(reader.pages):
     if i < 2:
         continue
     text = page.extract_text() or ""
-    for entry in toc1 + toc2:
+    for entry in toc1:
         num = entry.split(".")[0]
         if entry in text:
             page_of.setdefault(num, i + 1)
