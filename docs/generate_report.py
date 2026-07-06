@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Generates Internship_Report_Emilien_Amon_Bewizit.pdf"""
+import os
 import sys
 from reportlab.lib.pagesizes import LETTER
 from reportlab.lib.units import inch
@@ -11,6 +12,7 @@ from reportlab.platypus import (
 )
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else "Internship_Report_Emilien_Amon_Bewizit.pdf"
+LOGO_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "esme_logo.png")
 
 NAVY = colors.HexColor("#1f2d3d")
 ACCENT = colors.HexColor("#3f6fa8")
@@ -83,7 +85,31 @@ def figure_placeholder(caption):
     return [box, Paragraph(caption, styles["Caption"])]
 
 
+def page_background(canvas):
+    """Paint an explicit opaque white page background so text never relies on an
+    implicit page color — some PDF viewers apply a dark background in night mode
+    otherwise, which can leave dark text unreadable."""
+    canvas.saveState()
+    canvas.setFillColor(colors.white)
+    canvas.rect(0, 0, LETTER[0], LETTER[1], fill=1, stroke=0)
+    canvas.restoreState()
+
+
+def draw_logo(canvas, top_y):
+    """Draw the ESME logo top-right, its top edge at top_y (from page bottom)."""
+    if not os.path.exists(LOGO_PATH):
+        return
+    size = 0.42 * inch
+    x = LETTER[0] - 0.9 * inch - size
+    y = top_y - size
+    canvas.saveState()
+    canvas.drawImage(LOGO_PATH, x, y, width=size, height=size,
+                      preserveAspectRatio=True, mask="auto")
+    canvas.restoreState()
+
+
 def header_footer(canvas, doc):
+    page_background(canvas)
     canvas.saveState()
     canvas.setStrokeColor(colors.HexColor("#d5dae1"))
     canvas.setLineWidth(0.5)
@@ -93,13 +119,16 @@ def header_footer(canvas, doc):
     canvas.drawString(0.9 * inch, LETTER[1] - 0.55 * inch, "Emilien Amon — Internship Report — Bewizit")
     canvas.drawRightString(LETTER[0] - 0.9 * inch, 0.6 * inch, f"Page {canvas.getPageNumber()}")
     canvas.restoreState()
+    draw_logo(canvas, LETTER[1] - 0.18 * inch)
 
 
 def cover_page(canvas, doc):
+    page_background(canvas)
     canvas.saveState()
     canvas.setFillColor(NAVY)
     canvas.rect(0, LETTER[1] - 1.4 * inch, LETTER[0], 1.4 * inch, fill=1, stroke=0)
     canvas.restoreState()
+    draw_logo(canvas, LETTER[1] - 0.35 * inch)
 
 
 # ---------------------------------------------------------------- COVER ----
@@ -130,9 +159,10 @@ story.append(Paragraph(
     "three of the company's products — weteam, periscorp and periscorp-deck — while helping the "
     "team get more out of its AI-assisted development workflow.",
     styles["CoverIntro"]))
-story.append(PageBreak())
+story.append(Spacer(1, 0.35 * inch))
 
 # ------------------------------------------------------------------ TOC ----
+# Kept on the same page as the cover — both were mostly blank space on their own.
 story.append(Paragraph("Table of Contents", styles["PartHeading"]))
 toc1 = [
     "1. Introduction",
@@ -363,9 +393,9 @@ doc.build(first_story, onFirstPage=cover_page, onLaterPages=header_footer)
 from pypdf import PdfReader
 reader = PdfReader(OUT)
 page_of = {}
-# skip page index 0 (cover) and 1 (TOC itself) when locating headings
+# skip page index 0 (cover + TOC combined) when locating headings
 for i, page in enumerate(reader.pages):
-    if i < 2:
+    if i < 1:
         continue
     text = page.extract_text() or ""
     for entry in toc1:
