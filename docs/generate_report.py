@@ -30,11 +30,11 @@ styles.add(ParagraphStyle("CoverSubtitle", fontName="Helvetica", fontSize=13, le
 styles.add(ParagraphStyle("CoverIntro", fontName="Helvetica", fontSize=10.5, leading=15,
                            textColor=colors.black, spaceBefore=22))
 styles.add(ParagraphStyle("PartHeading", fontName="Helvetica-Bold", fontSize=15, leading=18,
-                           textColor=ACCENT, spaceBefore=4, spaceAfter=12))
+                           textColor=ACCENT, spaceBefore=4, spaceAfter=18))
 styles.add(ParagraphStyle("H1", fontName="Helvetica-Bold", fontSize=12.5, leading=15,
-                           textColor=NAVY, spaceBefore=14, spaceAfter=6))
-styles.add(ParagraphStyle("Body", fontName="Helvetica", fontSize=10, leading=14.5,
-                           textColor=colors.black, spaceAfter=8, alignment=TA_LEFT))
+                           textColor=NAVY, spaceBefore=48, spaceAfter=22))
+styles.add(ParagraphStyle("Body", fontName="Helvetica", fontSize=10.5, leading=25,
+                           textColor=colors.black, spaceAfter=32, alignment=TA_LEFT))
 styles.add(ParagraphStyle("TOCEntry", fontName="Helvetica", fontSize=10.5, leading=17,
                            textColor=colors.black))
 styles.add(ParagraphStyle("TOCPart", fontName="Helvetica-Bold", fontSize=11, leading=20,
@@ -68,8 +68,8 @@ def simple_table(rows, col_widths, header=True):
         ("VALIGN", (0, 0), (-1, -1), "TOP"),
         ("LEFTPADDING", (0, 0), (-1, -1), 6),
         ("RIGHTPADDING", (0, 0), (-1, -1), 6),
-        ("TOPPADDING", (0, 0), (-1, -1), 5),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
+        ("TOPPADDING", (0, 0), (-1, -1), 8),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
         ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#d5dae1")),
     ]
     if header:
@@ -346,11 +346,6 @@ story.append(Paragraph(
 story.extend(figure_image("fig4_periscorp_deck_landing.png",
     "Paired illustration — my work on the periscorp pitch deck: a small, concrete trace of that "
     "polyvalence in practice."))
-story.append(Paragraph("Acknowledgements", styles["H1"]))
-story.append(P(
-    "Thanks to Alexandre Wizel for taking the time, at such a small company scale, to bring me on, trust "
-    "me with real production work across three products, and personally supervise my progress throughout "
-    "the month."))
 story.append(PageBreak())
 
 # --------------------------------------------------------------- GLOSSARY --
@@ -379,16 +374,6 @@ gt.setStyle(TableStyle([
     ("LINEBELOW", (0, 0), (-1, -2), 0.4, colors.HexColor("#e3e7ec")),
 ]))
 story.append(gt)
-story.append(PageBreak())
-
-# ------------------------------------------------------------- DECLARATION -
-story.append(Paragraph("Declaration", styles["PartHeading"]))
-story.append(P(
-    "I declare that this report reflects my own personal experience and observations during my internship at "
-    "Bewizit, and that I wrote it myself for the purpose of this internship evaluation."))
-story.append(Spacer(1, 30))
-story.append(P("Emilien Amon"))
-story.append(P("July 8, 2026"))
 
 # ---------------------------------------------------------------- BUILD ----
 doc = SimpleDocTemplate(OUT, pagesize=LETTER,
