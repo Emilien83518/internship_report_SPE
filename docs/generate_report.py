@@ -7,12 +7,14 @@ from reportlab.lib.units import inch
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
+from reportlab.lib.utils import ImageReader
 from reportlab.platypus import (
-    SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak, KeepTogether, HRFlowable
+    SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak, KeepTogether, HRFlowable, Image
 )
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else "Internship_Report_Emilien_Amon_Bewizit.pdf"
-LOGO_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "esme_logo.png")
+ASSETS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
+LOGO_PATH = os.path.join(ASSETS_DIR, "esme_logo.png")
 
 NAVY = colors.HexColor("#1f2d3d")
 ACCENT = colors.HexColor("#3f6fa8")
@@ -39,6 +41,8 @@ styles.add(ParagraphStyle("TOCPart", fontName="Helvetica-Bold", fontSize=11, lea
                            textColor=ACCENT, spaceBefore=8))
 styles.add(ParagraphStyle("TableCell", fontName="Helvetica", fontSize=9, leading=12.5))
 styles.add(ParagraphStyle("TableCellBold", fontName="Helvetica-Bold", fontSize=9, leading=12.5))
+styles.add(ParagraphStyle("TableHeaderCell", fontName="Helvetica-Bold", fontSize=9, leading=12.5,
+                           textColor=colors.white))
 styles.add(ParagraphStyle("Caption", fontName="Helvetica-Oblique", fontSize=8.5, leading=12,
                            textColor=GREY, spaceAfter=10))
 styles.add(ParagraphStyle("Quote", fontName="Helvetica-Oblique", fontSize=11.5, leading=17,
@@ -52,12 +56,13 @@ def P(text, style="Body"):
     return Paragraph(text, styles[style])
 
 
-def cell(text, bold=False):
-    return Paragraph(text, styles["TableCellBold" if bold else "TableCell"])
+def cell(text, bold=False, header=False):
+    style_name = "TableHeaderCell" if header else ("TableCellBold" if bold else "TableCell")
+    return Paragraph(text, styles[style_name])
 
 
 def simple_table(rows, col_widths, header=True):
-    data = [[cell(c, bold=header and i == 0) for c in row] for i, row in enumerate(rows)]
+    data = [[cell(c, header=header and i == 0) for c in row] for i, row in enumerate(rows)]
     t = Table(data, colWidths=col_widths, repeatRows=1 if header else 0)
     style = [
         ("VALIGN", (0, 0), (-1, -1), "TOP"),
@@ -69,20 +74,25 @@ def simple_table(rows, col_widths, header=True):
     ]
     if header:
         style.append(("BACKGROUND", (0, 0), (-1, 0), NAVY))
-        style.append(("TEXTCOLOR", (0, 0), (-1, 0), colors.white))
     t.setStyle(TableStyle(style))
     return t
 
 
-def figure_placeholder(caption):
-    box = Table([[P("[ SCREENSHOT TO INSERT HERE ]", "Small")]], colWidths=[6.2 * inch], rowHeights=[0.9 * inch])
-    box.setStyle(TableStyle([
+def figure_image(filename, caption, max_width=6.2 * inch, max_height=4.0 * inch):
+    path = os.path.join(ASSETS_DIR, filename)
+    iw, ih = ImageReader(path).getSize()
+    scale = min(max_width / iw, max_height / ih)
+    img = Image(path, width=iw * scale, height=ih * scale)
+    img.hAlign = "CENTER"
+    frame = Table([[img]], colWidths=[6.2 * inch])
+    frame.setStyle(TableStyle([
         ("BOX", (0, 0), (-1, -1), 0.75, colors.HexColor("#b9c2cd")),
         ("ALIGN", (0, 0), (-1, -1), "CENTER"),
         ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-        ("BACKGROUND", (0, 0), (-1, -1), LIGHT),
+        ("TOPPADDING", (0, 0), (-1, -1), 10),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 10),
     ]))
-    return [box, Paragraph(caption, styles["Caption"])]
+    return [frame, Paragraph(caption, styles["Caption"])]
 
 
 def page_background(canvas):
@@ -244,10 +254,10 @@ story.append(simple_table(
      ["Slack", "Communicating with the CEO and collaborators", "Mastered well"],
      ["VS Code", "Day-to-day code editor", "Mastered"]],
     [1.1 * inch, 3.6 * inch, 1.5 * inch]))
-story.extend(figure_placeholder(
+story.extend(figure_image("fig1_projects_dashboard.png",
     "Figure 1 — “Projects” dashboard (Vercel-style) showing the three projects I worked on — "
     "periscorp-deck, weteam-app, weteam-web — with their GitHub repositories and recent commits."))
-story.extend(figure_placeholder(
+story.extend(figure_image("fig2_github_activity_june2026.png",
     "Figure 2 — My GitHub activity timeline for June 2026: 33 commits across 3 repositories, 2 repositories "
     "created, and 53+ pull requests opened across 4 repositories."))
 story.append(P(
@@ -275,7 +285,8 @@ story.append(P(
     "and context instead of starting cold. That change fed directly into the CEO's stated goal of lowering "
     "the cost of AI-assisted development, and it shows in the numbers: across the month I made 33 commits "
     "and opened more than 53 pull requests across four repositories, two of which I set up from scratch."))
-story.extend(figure_placeholder("Figure 3 — A pull request I created to improve the team's development efficiency."))
+story.extend(figure_image("fig3_pull_request_caveman_skills.png",
+    "Figure 3 — A pull request I created to improve the team's development efficiency."))
 
 story.append(Paragraph("7. Reflection on Situations Encountered", styles["H1"]))
 story.append(P(
@@ -332,7 +343,7 @@ story.append(Paragraph(
     "that it matters — even at a very small scale — to take on interns and help shape the people who'll "
     "shape the workforce after you.”",
     styles["Quote"]))
-story.extend(figure_placeholder(
+story.extend(figure_image("fig4_periscorp_deck_landing.png",
     "Paired illustration — my work on the periscorp pitch deck: a small, concrete trace of that "
     "polyvalence in practice."))
 story.append(Paragraph("Acknowledgements", styles["H1"]))
